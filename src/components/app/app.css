@@ -1,0 +1,9 @@
+.button-toggle-char {
+  margin-bottom: 40px;
+  width: 200px;
+  height: 40px;
+  background-color: #673ab7;
+  color: #ffffff;
+  border: 0;
+  cursor: pointer;
+}
