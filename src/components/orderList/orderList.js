@@ -9,7 +9,8 @@ export default class OrderList extends Component {
     }
 
     async componentDidMount() {
-        const url = 'http://localhost:8080/api/Orders';
+        // const url = 'http://localhost:8080/api/Orders';
+        const url = `${window.location.origin}/api/Orders`;
 
         const res = await fetch(url);
         const data = await res.json();
@@ -25,13 +26,13 @@ export default class OrderList extends Component {
         let items = null;
 
         if (orderList) {
-            items = orderList.map((order) => {
+            items = orderList.map((order, index) => {
                 const classes = ['in-time', 'urgent', 'too-late'];
                 const statuses = ['In time', 'Urgent', 'Too late'];
                 const statusClass = 'order-list__item-order-time order-list__item-order-time--' + classes[statuses.indexOf(order.status)];
 
                 return (
-                    <div className="order-list__item" id={order.id}>
+                    <div className="order-list__item" id={order.id} key={index}>
                         <div className="order-list__item-row">
                             <h4 className="order-list__item-order">Order <span>{order.id}</span></h4>
                             <h3 className="order-list__item-ordered-date">{order.createdAt}</h3>

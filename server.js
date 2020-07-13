@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
 
-// const PORT = process.env.PORT || 3000;
-const PORT = 8080;
+const PORT = process.env.PORT || 3000;
+// const PORT = 8080;
 
 const dbConfig = {
   server: "ORDERS-DB.mssql.somee.com",
@@ -22,15 +22,15 @@ function handleError(err, res) {
 
 app.use(cors());
 app.use(bodyParser.json());
-// app.use(express.static(__dirname + "/build"));
+app.use(express.static(__dirname + "/build"));
 
-// app.get("/", (req, res) => {
-//   res.sendFile(__dirname + "/build/index.html");
-// });
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/build/index.html");
+});
 
-// app.get("/dist/main.js", (req, res) => {
-//   res.sendFile(__dirname + "/dist/main.js");
-// });
+app.get("/dist/main.js", (req, res) => {
+  res.sendFile(__dirname + "/dist/main.js");
+});
 
 app.get("/api/Orders", (req, res) => {
   const query = `
