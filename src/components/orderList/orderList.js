@@ -10,16 +10,11 @@ export default class OrderList extends Component {
     }
 
     async componentDidMount() {
-        
-        // const url = `${window.location.origin}/api/Orders`;
-        // const url = 'http://localhost:8080/api/Orders';
         let url = `${window.location.origin}/api/Orders`;
 
         if (process.env.NODE_ENV === 'development') {
             url = 'http://localhost:8080/api/Orders';
         }
-
-        console.log(process.env.NODE_ENV);
 
         const res = await fetch(url);
         const data = await res.json();

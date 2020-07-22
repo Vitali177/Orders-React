@@ -4,16 +4,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
 
-// const PORT = process.env.PORT || 8080;
 const PORT = (process.env.NODE_ENV === "development") ? 8080 : process.env.PORT;
-console.log(process.env.NODE_ENV);
-// const PORT = 8080;
-
-app.use(express.static(__dirname + "/build"));
-
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/build/index.html");
-});
 
 const dbConfig = {
   server: "ORDERS-DB.mssql.somee.com",
@@ -30,7 +21,11 @@ function handleError(err, res) {
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static(__dirname + "/build"));
 
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/build/index.html");
+});
 
 app.get("/dist/main.js", (req, res) => {
   res.sendFile(__dirname + "/dist/main.js");
