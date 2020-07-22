@@ -1,0 +1,124 @@
+.order {
+  height: calc(100vh - var(--footer-height));
+  background: var(--primary-white);
+  overflow: auto; 
+}
+
+@media(max-width: 580px) {
+  .order {
+    height: 100%;
+  }
+
+  .order .tab--selected {
+    min-height: 325px;
+    padding: 0 0 15px 0;
+  }
+
+  #map {
+    height: 300px;
+  }
+
+  .order__address-heading, .address-processor-heading {
+    padding: 18px 0 0 10px;    
+  }
+
+  .order__address-list {
+    padding: 0;
+    margin: 0 20px;
+  }
+
+  .order__address-list .box {
+    margin-top: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order__address-list input {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .order__address-item {
+    width: 100%;
+    margin-left: 5px;
+    text-align: initial;
+  }
+
+  .order__line-items {
+    min-height: 350px;
+    padding: 0 0 var(--footer-height) 0;
+  }
+
+  .order__line-items-form {
+    padding-left: 20px;
+  }
+
+  .order__line-items-header {
+    padding: 0;
+    height: 80px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+  }
+  
+  .order__line-items-heading {
+    padding-left: 20px;
+  }
+
+  .order__line-items-input-search {
+    width: 260px;
+  }
+
+  .order__line-items-form .order-list__button-search {
+    right: 25px;
+  }
+
+  .order__line-items-form .order-list__button-refresh {
+    right: 0;
+  }
+
+  .order__line-list-row {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 20px;
+  }
+
+  .order__line-list-row .product {
+    padding: 0;
+  }
+
+  .order__line-list-row .unit-price, 
+  .order__line-list-row .quantity, 
+  .order__line-list-row .total {
+    display: block;
+    min-height: 10px;
+    margin-top: 10px;
+  }
+
+  .order__line-list-row .total {
+    margin-bottom: 5px;
+  }
+
+  .order__line-list-row .product {
+    justify-content: space-around;
+    margin-top: 5px;
+  }
+
+  .order__line-list-row .product span {
+    margin-top: 5px;
+  }
+
+  .order__line-list-row .mobile-info {
+    display: block;
+  }  
+
+  .order__line-list-row--headline .unit-price, 
+  .order__line-list-row--headline .quantity, 
+  .order__line-list-row--headline .total {
+    display: none;
+  }  
+
+  .no-products {
+    padding-left: 20px;
+  }
+} 

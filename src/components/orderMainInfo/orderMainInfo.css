@@ -1,0 +1,119 @@
+.order__main-info {
+  height: 30%;
+  min-height: 220px;
+  padding: 0 20px;
+  background: var(--primary-light-blue);
+  border-bottom: 1px solid var(--secondary-blue);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.order__main-info .wrapper {
+  padding-top: 50px;
+  height: 148px;
+}
+
+.order__row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order__cost {
+  text-align: right;
+  font-weight: 300;  
+}
+
+.order__cost span {
+  font-size: 15px;
+}
+
+.order__main-info-list {
+  list-style-type: none;
+}
+
+.order__name {
+  max-width: 50%;
+  max-height: 65px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: normal;
+}
+
+.order__name, .order__customer, .order__ordered, .order__shipped {
+  font-weight: 300;
+}
+
+.order__customer, .order__ordered, .order__shipped {
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: var(--primary-light-black);
+}
+
+.order__buttons {
+  margin-bottom: 10px;
+  margin-top: 35px;
+  display: flex;
+}
+
+.order__button {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid var(--primary-blue);
+  cursor: pointer;
+}
+
+.order__button-address {
+  background: url("../../../img/button-address.png") center center no-repeat;
+  background-size: 75%;
+}
+
+.order__button-processor {
+  margin-left: 25px;
+  background: url("../../../img/button-processor.png") center center no-repeat;
+  background-size: 75%;
+}
+
+.order__button-map {
+  margin-left: 25px;
+  background: url("../../../img/button-map.png") center center no-repeat;
+  background-size: 75%;
+}
+
+.order__button--selected {
+  background-color: var(--primary-blue);
+}
+
+.order__button:hover::before {
+  content: "";
+  position: absolute;
+  top: 43px;
+  height: 2px;
+  width: 100%;
+  background-color: var(--primary-gray);
+  cursor: default;
+}
+
+.order__button.order__button--selected::before {
+  content: "";
+  position: absolute;
+  top: 43px;
+  height: 2px;
+  width: 100%;
+  background-color: var(--primary-blue);
+  cursor: default;
+}
+
+.order__button-address.order__button--selected {
+  background-image: url("../../../img/button-address--selected.png");
+}
+
+.order__button-processor.order__button--selected {
+  background-image: url("../../../img/button-processor--selected.png");
+}
+
+.order__button-map.order__button--selected {
+  background-image: url("../../../img/button-map--selected.png");
+}

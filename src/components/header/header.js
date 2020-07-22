@@ -12,5 +12,5 @@ export default class Header extends Component {
                 <OrderList />
             </div>
         )
-  }
+    }
 }
