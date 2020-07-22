@@ -66,19 +66,19 @@
 }
 
 .order__button-address {
-  background: url("../../../img/button-address.png") center center no-repeat;
+  background: url("./img/button-address.png") center center no-repeat;
   background-size: 75%;
 }
 
 .order__button-processor {
   margin-left: 25px;
-  background: url("../../../img/button-processor.png") center center no-repeat;
+  background: url("./img/button-processor.png") center center no-repeat;
   background-size: 75%;
 }
 
 .order__button-map {
   margin-left: 25px;
-  background: url("../../../img/button-map.png") center center no-repeat;
+  background: url("./img/button-map.png") center center no-repeat;
   background-size: 75%;
 }
 
@@ -107,13 +107,13 @@
 }
 
 .order__button-address.order__button--selected {
-  background-image: url("../../../img/button-address--selected.png");
+  background-image: url("./img/button-address--selected.png");
 }
 
 .order__button-processor.order__button--selected {
-  background-image: url("../../../img/button-processor--selected.png");
+  background-image: url("./img/button-processor--selected.png");
 }
 
 .order__button-map.order__button--selected {
-  background-image: url("../../../img/button-map--selected.png");
+  background-image: url("./img/button-map--selected.png");
 }
