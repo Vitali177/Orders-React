@@ -10,7 +10,16 @@ export default class OrderList extends Component {
     }
 
     async componentDidMount() {
-        const url = `${window.location.origin}/api/Orders`;
+        
+        // const url = `${window.location.origin}/api/Orders`;
+        // const url = 'http://localhost:8080/api/Orders';
+        let url = `${window.location.origin}/api/Orders`;
+
+        if (process.env.NODE_ENV === 'development') {
+            url = 'http://localhost:8080/api/Orders';
+        }
+
+        console.log(process.env.NODE_ENV);
 
         const res = await fetch(url);
         const data = await res.json();
@@ -23,7 +32,7 @@ export default class OrderList extends Component {
     render() {
         const {orderList} = this.state;
         const spinner = !orderList ? 'spinner' : null; 
-        const items = orderList ? orderList.map((order, index) => <OrderListItem order={order} index={index} />) : null;
+        const items = orderList ? orderList.map((order, index) => <OrderListItem order={order} key={order.id} />) : null;
 
         return (            
             <section className="order-list">
