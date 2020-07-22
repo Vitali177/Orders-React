@@ -1,0 +1,4 @@
+.preloader {
+  height: 100px;
+  background: url("./img/preloader.gif") center center no-repeat no-repeat;
+}
