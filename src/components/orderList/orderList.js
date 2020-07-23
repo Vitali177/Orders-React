@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import OrderListItem from '../orderListItem/';
+import Spinner from '../spinner/';
 
 import './orderList.css';
 
@@ -26,7 +27,7 @@ export default class OrderList extends Component {
 
     render() {
         const {orderList} = this.state;
-        const spinner = !orderList ? 'spinner' : null; 
+        const spinner = !orderList ? <Spinner /> : null; 
         const items = orderList ? orderList.map((order, index) => <OrderListItem order={order} key={order.id} />) : null;
 
         return (            
