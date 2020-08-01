@@ -4,6 +4,10 @@
   overflow: auto; 
 }
 
+.order .tab--selected {
+  display: block;
+}
+
 @media(max-width: 580px) {
   .order {
     height: 100%;

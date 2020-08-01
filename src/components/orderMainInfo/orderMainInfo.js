@@ -4,7 +4,7 @@ import Spinner from '../spinner/';
 import './orderMainInfo.css';
 export default class OrderMainInfo extends Component {
     render() {
-        const order = this.props.order.selectedOrder;
+        const {order} = this.props;
 
         const spinner = !order ? <Spinner /> : null;
         const content = order ? <View order={order} /> : null; 

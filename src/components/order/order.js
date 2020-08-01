@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import OrderMainInfo from '../orderMainInfo';
+import OrderAddress from '../orderAddress';
 
 import './order.css';
 
 export default class Order extends Component {
 
     state = {
-        selectedOrder: null
+        selectedOrder: null,
+        indexTabSelected: 0
     }
 
     async componentDidMount() {
@@ -27,11 +29,12 @@ export default class Order extends Component {
     }
 
     render() {
-        const selectedOrder = this.state;
+        const {selectedOrder, indexTabSelected} = this.state;
 
         return (
             <main className="order">
-                <OrderMainInfo order={selectedOrder}/>
+                <OrderMainInfo order={selectedOrder} />                
+                <OrderAddress order={selectedOrder} indexTab={0} indexTabSelected={indexTabSelected}/>
             </main>
         )
     }
