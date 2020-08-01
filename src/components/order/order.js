@@ -33,8 +33,8 @@ export default class Order extends Component {
 
         return (
             <main className="order">
-                <OrderMainInfo order={selectedOrder} />                
-                <OrderAddress order={selectedOrder} indexTab={0} indexTabSelected={indexTabSelected}/>
+                <OrderMainInfo order={selectedOrder} indexTabSelected={indexTabSelected} />                
+                <OrderAddress order={selectedOrder} indexTab={0} indexTabSelected={indexTabSelected} />
             </main>
         )
     }

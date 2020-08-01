@@ -1,13 +1,23 @@
 import React, {Component} from 'react';
+import OrderButton from '../orderButton/';
 import Spinner from '../spinner/';
 
 import './orderMainInfo.css';
-export default class OrderMainInfo extends Component {
+export default class OrderMainInfo extends Component {  
+
+    state = {
+        buttonsClassNames: ['order__button-address', 'order__button-processor', 'order__button-map']
+    }
+
     render() {
-        const {order} = this.props;
+        const {buttonsClassNames} = this.state;
+        const {order, indexTabSelected} = this.props;
 
         const spinner = !order ? <Spinner /> : null;
         const content = order ? <View order={order} /> : null; 
+
+        const buttons = buttonsClassNames.map((className, idx) => <OrderButton className={className} 
+            key={idx} index={idx} indexTabSelected={indexTabSelected} />);
 
         return (
             <section className="order__main-info">
@@ -16,13 +26,11 @@ export default class OrderMainInfo extends Component {
                     {content}
                 </div>                            
                 <div className="order__buttons">
-                    <div className="order__button order__button-address order__button--selected"></div>
-                    <div className="order__button order__button-processor"></div>
-                    <div className="order__button order__button-map"></div>
+                    {buttons}
                 </div>
             </section>
-        )
-    }
+        )    
+    }    
 }
 
 const View = ({order}) => {
