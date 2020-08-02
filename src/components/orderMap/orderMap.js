@@ -12,7 +12,10 @@ export default class OrderMap extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.order !== null) {
+        // Generate Yandex map only once after mounting component. Re-generation if was selected another order
+        if (nextProps.order !== null && JSON.stringify(nextProps.order) !== JSON.stringify(this.props.order)) { 
+            this.setState({loading: true});
+
             const {address, region, country} = nextProps.order;
 
             const queryApi = 'https://api.opencagedata.com/geocode/v1/json?';
