@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import OrderMainInfo from '../orderMainInfo';
 import OrderAddress from '../orderAddress';
 import OrderProcessor from '../orderProcessor';
+import OrderMap from '../orderMap';
 
 import './order.css';
 
@@ -9,7 +10,7 @@ export default class Order extends Component {
 
     state = {
         selectedOrder: null,
-        indexTabSelected: 0
+        indexTabSelected: 2
     }
 
     async componentDidMount() {
@@ -37,6 +38,7 @@ export default class Order extends Component {
                 <OrderMainInfo order={selectedOrder} indexTabSelected={indexTabSelected} />                                
                 <OrderAddress order={selectedOrder} indexTab={0} indexTabSelected={indexTabSelected} />
                 <OrderProcessor order={selectedOrder} indexTab={1} indexTabSelected={indexTabSelected} />
+                <OrderMap order={selectedOrder} indexTab={2} indexTabSelected={indexTabSelected} />
             </main>
         )
     }
