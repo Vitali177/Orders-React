@@ -25,8 +25,7 @@ export default class OrderMap extends Component {
                     generateYandexMap(data.results[0].geometry.lat, data.results[0].geometry.lng);
                     this.setState({loading: false});
                 })
-                .catch(err => document.querySelector("#map").innerHTML = ``);
-
+                .catch(err => this.setState({error: true}));
         }        
     }
 

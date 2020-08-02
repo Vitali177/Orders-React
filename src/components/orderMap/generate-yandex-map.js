@@ -8,11 +8,6 @@ export default function generateYandexMap(lat, lng) {
             searchControlProvider: 'yandex#search'
         }),
 
-        // Создаём макет содержимого.
-        MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
-            '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
-        ),
-
         myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
             hintContent: 'Собственный значок метки',
             balloonContent: 'Это красивая метка'

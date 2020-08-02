@@ -30,15 +30,36 @@ export default class Order extends Component {
         })();   
     }
 
+    onChangeSelectedTab = (index) => {
+        if (this.state.indexTabSelected !== index) {
+            this.setState({indexTabSelected: index});
+        }
+    } 
+
     render() {
         const {selectedOrder, indexTabSelected} = this.state;
-
         return (
             <main className="order">
-                <OrderMainInfo order={selectedOrder} indexTabSelected={indexTabSelected} />                                
-                <OrderAddress order={selectedOrder} indexTab={0} indexTabSelected={indexTabSelected} />
-                <OrderProcessor order={selectedOrder} indexTab={1} indexTabSelected={indexTabSelected} />
-                <OrderMap order={selectedOrder} indexTab={2} indexTabSelected={indexTabSelected} />
+                <OrderMainInfo 
+                    order={selectedOrder} 
+                    indexTabSelected={indexTabSelected}
+                    onChangeSelectedTab={this.onChangeSelectedTab} 
+                />                                
+                <OrderAddress 
+                    order={selectedOrder} 
+                    indexTab={0} 
+                    indexTabSelected={indexTabSelected}
+                />
+                <OrderProcessor 
+                    order={selectedOrder} 
+                    indexTab={1} 
+                    indexTabSelected={indexTabSelected}
+                />
+                <OrderMap 
+                    order={selectedOrder} 
+                    indexTab={2} 
+                    indexTabSelected={indexTabSelected} 
+                />
             </main>
         )
     }
