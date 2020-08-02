@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import OrderMainInfo from '../orderMainInfo';
 import OrderAddress from '../orderAddress';
+import OrderProcessor from '../orderProcessor';
 
 import './order.css';
 
@@ -33,8 +34,9 @@ export default class Order extends Component {
 
         return (
             <main className="order">
-                <OrderMainInfo order={selectedOrder} indexTabSelected={indexTabSelected} />                
+                <OrderMainInfo order={selectedOrder} indexTabSelected={indexTabSelected} />                                
                 <OrderAddress order={selectedOrder} indexTab={0} indexTabSelected={indexTabSelected} />
+                <OrderProcessor order={selectedOrder} indexTab={1} indexTabSelected={indexTabSelected} />
             </main>
         )
     }

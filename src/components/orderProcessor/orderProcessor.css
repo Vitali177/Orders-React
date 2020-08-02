@@ -1,0 +1,17 @@
+.order__processor {
+  display: none; 
+  min-height: 180px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--secondary-blue);
+}
+
+.order__processor-wrapper-heading {
+  display: flex;
+  align-items: flex-end;
+  padding: 20px 0 0 10px;
+}
+
+.order__processor-item--telephone {
+  color: var(--primary-blue);
+  cursor: pointer;
+}
