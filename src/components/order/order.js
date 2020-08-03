@@ -3,6 +3,7 @@ import OrderMainInfo from '../orderMainInfo';
 import OrderAddress from '../orderAddress';
 import OrderProcessor from '../orderProcessor';
 import OrderMap from '../orderMap';
+import OrderLineItems from '../orderLineItems';
 
 import './order.css';
 
@@ -59,6 +60,9 @@ export default class Order extends Component {
                     order={selectedOrder} 
                     indexTab={2} 
                     indexTabSelected={indexTabSelected} 
+                />
+                <OrderLineItems 
+                    order={selectedOrder} 
                 />
             </main>
         )
