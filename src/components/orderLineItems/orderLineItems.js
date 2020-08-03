@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import OrderProduct from '../orderProduct';
 import Spinner from '../spinner';
 
 import './orderLineItems.css';
@@ -31,12 +32,12 @@ export default class OrderLineItems extends Component {
         const {products, loading} = this.state;
 
         const spinner = loading ? <Spinner /> : null;
-        // const content = (!loading && !products && products.length) ? products.map((prod) => <OrderProduct data={prod} key={prod.id} />) : null; 
+        const content = (!loading && products && products.length) ? products.map((prod) => <OrderProduct data={prod} key={prod.id} />) : null; 
 
         return (
             <section className="order__line-items">
                 <div className="order__line-items-header">
-                    <h4 className="order__line-items-heading">Line Items (<span></span>)</h4>
+                    <h4 className="order__line-items-heading">Line Items (<span>{products ? products.length : 0}</span>)</h4>
                     <div className="form-wrapper">
                         <form action="#" className="order__line-items-form">
                             <input type="search" className="order__line-items-input-search" placeholder="Search" />
@@ -58,7 +59,7 @@ export default class OrderLineItems extends Component {
                     </div>
                     <div className="wrapper">
                         {spinner}
-                        {/* {content} */}
+                        {content}
                     </div>                    
                 </ul>
             </section>
