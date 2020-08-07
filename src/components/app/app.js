@@ -11,7 +11,7 @@ export default class App extends Component {
         idSelectedOrder: 1
     }
 
-    onChangeSelectedOrderId(id) {
+    onChangeSelectedOrderId = (id) => {
         if (id !== this.state.idSelectedOrder) {
             this.setState({idSelectedOrder: id});
         }

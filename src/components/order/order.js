@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import OrderMainInfo from '../orderMainInfo';
 import OrderAddress from '../orderAddress';
 import OrderProcessor from '../orderProcessor';
@@ -6,65 +6,64 @@ import OrderMap from '../orderMap';
 import OrderLineItems from '../orderLineItems';
 
 import './order.css';
+function Order({idSelectedOrder}) {
 
-export default class Order extends Component {
+    const [selectedOrder, changeSelectedOrder] = useState(null);
+    const [indexTabSelected, changeIndexTabSelected] = useState(0);
 
-    state = {
-        selectedOrder: null,
-        indexTabSelected: 0
-    }
-
-    async componentDidMount() {
-        const defaultId = 1;
-
-        let url = `${window.location.origin}/api/Orders/${defaultId}`;  
+    async function fetchOrder() {
+        
+        let url = `${window.location.origin}/api/Orders/${idSelectedOrder}`;  
 
         if (process.env.NODE_ENV === 'development') {
-            url = `http://localhost:8080/api/Orders/${defaultId}`;
+            url = `http://localhost:8080/api/Orders/${idSelectedOrder}`;
         }
 
         const res = await fetch(url);
         const data = await res.json();
 
         await (() => {
-            this.setState({selectedOrder: data});
-        })();   
+            changeSelectedOrder(data);
+        })(); 
     }
 
-    onChangeSelectedTab = (index) => {
-        if (this.state.indexTabSelected !== index) {
-            this.setState({indexTabSelected: index});
+    useEffect(() => {
+        fetchOrder();
+    }, [idSelectedOrder]);
+
+    const onChangeSelectedTab = (index) => {
+        if (indexTabSelected !== index) {
+            changeIndexTabSelected(index);
         }
     } 
 
-    render() {
-        const {selectedOrder, indexTabSelected} = this.state;
-        return (
-            <main className="order">
-                <OrderMainInfo 
-                    order={selectedOrder} 
-                    indexTabSelected={indexTabSelected}
-                    onChangeSelectedTab={this.onChangeSelectedTab} 
-                />                                
-                <OrderAddress 
-                    order={selectedOrder} 
-                    indexTab={0} 
-                    indexTabSelected={indexTabSelected}
-                />
-                <OrderProcessor 
-                    order={selectedOrder} 
-                    indexTab={1} 
-                    indexTabSelected={indexTabSelected}
-                />
-                <OrderMap 
-                    order={selectedOrder} 
-                    indexTab={2} 
-                    indexTabSelected={indexTabSelected} 
-                />
-                <OrderLineItems 
-                    order={selectedOrder} 
-                />
-            </main>
-        )
-    }
+    return (
+        <main className="order" >
+            <OrderMainInfo 
+                order={selectedOrder} 
+                indexTabSelected={indexTabSelected}
+                onChangeSelectedTab={onChangeSelectedTab}
+            />                                
+            <OrderAddress 
+                order={selectedOrder} 
+                indexTab={0} 
+                indexTabSelected={indexTabSelected}
+            />
+            <OrderProcessor 
+                order={selectedOrder} 
+                indexTab={1} 
+                indexTabSelected={indexTabSelected}
+            />
+            <OrderMap 
+                order={selectedOrder} 
+                indexTab={2} 
+                indexTabSelected={indexTabSelected} 
+            />
+            <OrderLineItems 
+                order={selectedOrder} 
+            />
+        </main>
+    )    
 }
+
+export default Order;
