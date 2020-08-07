@@ -11,7 +11,7 @@ export default class Order extends Component {
 
     state = {
         selectedOrder: null,
-        indexTabSelected: 2
+        indexTabSelected: 0
     }
 
     async componentDidMount() {

@@ -27,8 +27,12 @@ export default class OrderList extends Component {
 
     render() {
         const {orderList} = this.state;
+        const {idSelectedOrder} = this.props;
+
         const spinner = !orderList ? <Spinner /> : null; 
-        const items = orderList ? orderList.map((order, index) => <OrderListItem order={order} key={order.id} />) : null;
+        const items = orderList ? orderList.map((order, index) => <OrderListItem 
+            order={order} key={order.id} idSelectedOrder={idSelectedOrder} />)
+            : null;
 
         return (            
             <section className="order-list">
