@@ -11,10 +11,10 @@ export default class OrderMainInfo extends Component {
 
     render() {
         const {buttonsClassNames} = this.state;
-        const {order, indexTabSelected, onChangeSelectedTab} = this.props;
+        const {order, indexTabSelected, onChangeSelectedTab, loading} = this.props;
 
-        const spinner = !order ? <Spinner /> : null;
-        const content = order ? <View order={order} /> : null; 
+        const spinner = loading ? <Spinner /> : null;
+        const content = !loading ? <View order={order} /> : null; 
 
         const buttons = buttonsClassNames.map((className, idx) => <OrderButton className={className} 
             key={idx} index={idx} indexTabSelected={indexTabSelected} onChangeSelectedTab={onChangeSelectedTab} />);

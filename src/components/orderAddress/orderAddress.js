@@ -3,9 +3,9 @@ import Spinner from '../spinner/';
 
 import './orderAddress.css';
 
-const OrderAddress = ({order, indexTab, indexTabSelected}) => {
-    const spinner = !order ? <Spinner /> : null;
-    const content = order ? <View order={order} /> : null; 
+const OrderAddress = ({order, indexTab, indexTabSelected, loading}) => {
+    const spinner = loading ? <Spinner /> : null;
+    const content = !loading ? <View order={order} /> : null; 
 
     let sectionClassNames = 'order__address';
     sectionClassNames += indexTab === indexTabSelected ? ' tab--selected' : '';

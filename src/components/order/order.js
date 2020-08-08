@@ -8,26 +8,28 @@ import OrderLineItems from '../orderLineItems';
 import './order.css';
 function Order({idSelectedOrder}) {
 
+    const [loading, setLoading] = useState(true);
     const [selectedOrder, changeSelectedOrder] = useState(null);
-    const [indexTabSelected, changeIndexTabSelected] = useState(0);
-
-    async function fetchOrder() {
-        
-        let url = `${window.location.origin}/api/Orders/${idSelectedOrder}`;  
-
-        if (process.env.NODE_ENV === 'development') {
-            url = `http://localhost:8080/api/Orders/${idSelectedOrder}`;
-        }
-
-        const res = await fetch(url);
-        const data = await res.json();
-
-        await (() => {
-            changeSelectedOrder(data);
-        })(); 
-    }
+    const [indexTabSelected, changeIndexTabSelected] = useState(0);    
 
     useEffect(() => {
+        async function fetchOrder() {
+            setLoading(true);
+
+            let url = `${window.location.origin}/api/Orders/${idSelectedOrder}`;  
+    
+            if (process.env.NODE_ENV === 'development') {
+                url = `http://localhost:8080/api/Orders/${idSelectedOrder}`;
+            }
+    
+            const res = await fetch(url);
+            const data = await res.json();
+    
+            await (() => {
+                changeSelectedOrder(data);
+                setLoading(false);
+            })(); 
+        }
         fetchOrder();
     }, [idSelectedOrder]);
 
@@ -43,11 +45,13 @@ function Order({idSelectedOrder}) {
                 order={selectedOrder} 
                 indexTabSelected={indexTabSelected}
                 onChangeSelectedTab={onChangeSelectedTab}
+                loading={loading}
             />                                
             <OrderAddress 
                 order={selectedOrder} 
                 indexTab={0} 
                 indexTabSelected={indexTabSelected}
+                loading={loading}
             />
             <OrderProcessor 
                 order={selectedOrder} 
