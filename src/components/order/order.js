@@ -65,6 +65,7 @@ function Order({idSelectedOrder}) {
             />
             <OrderLineItems 
                 order={selectedOrder} 
+                loadingOrder={loading}
             />
         </main>
     )    
