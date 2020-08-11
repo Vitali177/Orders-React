@@ -1,16 +1,22 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import OrderListItem from '../orderListItem/';
 import Spinner from '../spinner/';
 
 import './orderList.css';
 
-export default class OrderList extends Component {
+function OrderList({idSelectedOrder, onChangeSelectedOrderId}) {
 
-    state = {
-        orderList: null
-    }
+    const [loading, setLoading] = useState(true);
+    const [orderList, setOrderList] = useState(null);
+    const[searchText, setSearchText] = useState('');
 
-    async componentDidMount() {
+    useEffect(() => {        
+        fetchOrderList(searchText);
+    }, []);
+
+    async function fetchOrderList(searchText) {
+        setLoading(true);
+
         let url = `${window.location.origin}/api/Orders`;
 
         if (process.env.NODE_ENV === 'development') {
@@ -21,42 +27,67 @@ export default class OrderList extends Component {
         const data = await res.json();
 
         await (() => {
-            this.setState({orderList: data});
-        })();            
+            const criteria = ["id", "ZIP", "address", "country", "createdAt", "email", "firstName",
+                "lastName", "phone", "region", "shippedAt", "status"];
+
+            let matchesOrders = data.filter((order) => {
+                const regex = new RegExp(`^${searchText}`, "gi");
+        
+                for (let i = 0; i < criteria.length; i++) {
+                    if ( `${order[criteria[i]]}`.match(regex)) {
+                        return 1;
+                    }
+                } 
+            });
+
+            setOrderList(matchesOrders);
+            setLoading(false);
+        })();   
     }
 
-    render() {
-        const {orderList} = this.state;
-        const {idSelectedOrder, onChangeSelectedOrderId} = this.props;
+    function searchOrders(e) {
+        e.preventDefault();
+        fetchOrderList(searchText);
+    }    
 
-        const spinner = !orderList ? <Spinner /> : null; 
-        const items = orderList ? orderList.map((order, index) => <OrderListItem 
-            order={order} key={order.id} idSelectedOrder={idSelectedOrder} onChangeSelectedOrderId={onChangeSelectedOrderId} />)
-            : null;
+    const spinner = loading ? <Spinner /> : null; 
+    const items = !loading ? orderList.map((order) => <OrderListItem 
+            order={order} 
+            key={order.id} 
+            idSelectedOrder={idSelectedOrder} 
+            onChangeSelectedOrderId={onChangeSelectedOrderId} />)
+        : null;
 
-        return (            
-            <section className="order-list">
-                <div className="order-list__header">
-                    <div className="order-list__header-row">
-                        <button className="order-list__button-back"></button>
-                        <h3>Orders (<span>{orderList ? orderList.length : 0}</span>)</h3>
-                    </div>                    
-                    <form action="#" className="order-list__form">
-                        <input type="search" className="order-list__input-search" placeholder="Search" />
-                        <div className="order-list__button-search">
-                            <input type="submit" value="" />
-                        </div>
-                        <div className="order-list__button-refresh"></div>
-                    </form>
-                </div>
-                <div className="order-list__main">
-                    {spinner}
-                    {items}
-                </div>
-                <div className="order-list__footer">
-                    <div className="order-list__footer-button-create-order plus-animation"></div>
-                </div>
-            </section>
-        )        
-    }
+    return (            
+        <section className="order-list">
+            <div className="order-list__header">
+                <div className="order-list__header-row">
+                    <button className="order-list__button-back"></button>
+                    <h3>Orders (<span>{orderList ? orderList.length : 0}</span>)</h3>
+                </div>                    
+                <form action="#" className="order-list__form" onSubmit={searchOrders}>
+                    <input 
+                        type="search" 
+                        className="order-list__input-search" 
+                        value={searchText}
+                        placeholder="Search" 
+                        onChange={(e) => setSearchText(e.target.value)}
+                    />
+                    <div className="order-list__button-search">
+                        <input type="submit" value="" />
+                    </div>
+                    <div className="order-list__button-refresh"></div>
+                </form>
+            </div>
+            <div className="order-list__main">
+                {spinner}
+                {items}
+            </div>
+            <div className="order-list__footer">
+                <div className="order-list__footer-button-create-order plus-animation"></div>
+            </div>
+        </section>
+    )  
 }
+
+export default OrderList;
