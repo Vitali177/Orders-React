@@ -24,7 +24,7 @@ function Header({idSelectedOrder, onChangeSelectedOrderId}) {
                 className={isMenuOpen ? 'header__button header__button--hidden' : 'header__button'} 
                 onClick={() => onToggleMenu(true)}>
             </button>
-            <h1>Order</h1>
+            <h1>Orders</h1>
             <OrderList 
                 idSelectedOrder={idSelectedOrder} 
                 onChangeSelectedOrderId={onChangeSelectedOrderId}
