@@ -4,7 +4,7 @@ import Spinner from '../spinner/';
 
 import './orderList.css';
 
-function OrderList({idSelectedOrder, onChangeSelectedOrderId}) {
+function OrderList({idSelectedOrder, onChangeSelectedOrderId, isMenuOpen, onToggleMenu}) {
 
     const [loading, setLoading] = useState(true);
     const [orderList, setOrderList] = useState(null);
@@ -59,10 +59,10 @@ function OrderList({idSelectedOrder, onChangeSelectedOrderId}) {
         : null;
 
     return (            
-        <section className="order-list">
+        <section className={isMenuOpen ? 'order-list' : 'order-list order-list--hidden'}>
             <div className="order-list__header">
                 <div className="order-list__header-row">
-                    <button className="order-list__button-back"></button>
+                    <button className="order-list__button-back" onClick={() => onToggleMenu(false)}></button>
                     <h3>Orders (<span>{orderList ? orderList.length : 0}</span>)</h3>
                 </div>                    
                 <form action="#" className="order-list__form" onSubmit={searchOrders}>
