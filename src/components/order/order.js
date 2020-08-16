@@ -82,8 +82,7 @@ function Order({idSelectedOrder}) {
             <OrderMap 
                 order={selectedOrder} 
                 indexTab={2} 
-                indexTabSelected={indexTabSelected} 
-                onModifyOrderInfo={onModifyOrderInfo}
+                indexTabSelected={indexTabSelected}
             />
             <OrderLineItems 
                 order={selectedOrder} 

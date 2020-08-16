@@ -1,12 +1,10 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component, useState} from 'react';
 import Spinner from '../spinner/';
 
 import './orderAddress.css';
 
 const OrderAddress = ({order, indexTab, indexTabSelected, onModifyOrderInfo, loading}) => {
     const [isModifyInputs, setIsModifyInputs] = useState(false);
-
-
 
     const spinner = loading ? <Spinner /> : null;
     const content = !loading ? <View order={order} isModifyInputs={isModifyInputs} onModifyOrderInfo={onModifyOrderInfo} /> : null; 
