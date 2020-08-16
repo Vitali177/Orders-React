@@ -39,6 +39,25 @@ function Order({idSelectedOrder}) {
         }
     } 
 
+    const onModifyOrderInfo = (inputs) => {
+        let url = `${window.location.origin}/api/Orders/${idSelectedOrder}`;
+
+        if (process.env.NODE_ENV === 'development') {
+            url = `http://localhost:8080/api/Orders/${idSelectedOrder}`;
+        }
+
+        fetch(url, {
+            method: "PUT",
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(inputs)
+        });
+    }
+
     return (
         <main className="order" >
             <OrderMainInfo 
@@ -51,17 +70,20 @@ function Order({idSelectedOrder}) {
                 order={selectedOrder} 
                 indexTab={0} 
                 indexTabSelected={indexTabSelected}
+                onModifyOrderInfo={onModifyOrderInfo}
                 loading={loading}
             />
             <OrderProcessor 
                 order={selectedOrder} 
                 indexTab={1} 
                 indexTabSelected={indexTabSelected}
+                onModifyOrderInfo={onModifyOrderInfo}
             />
             <OrderMap 
                 order={selectedOrder} 
                 indexTab={2} 
                 indexTabSelected={indexTabSelected} 
+                onModifyOrderInfo={onModifyOrderInfo}
             />
             <OrderLineItems 
                 order={selectedOrder} 

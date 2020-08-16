@@ -1,13 +1,15 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import Spinner from '../spinner/';
 
 import './orderAddress.css';
 
-const OrderAddress = ({order, indexTab, indexTabSelected, loading}) => {
+const OrderAddress = ({order, indexTab, indexTabSelected, onModifyOrderInfo, loading}) => {
     const [isModifyInputs, setIsModifyInputs] = useState(false);
 
+
+
     const spinner = loading ? <Spinner /> : null;
-    const content = !loading ? <View order={order} isModifyInputs={isModifyInputs} /> : null; 
+    const content = !loading ? <View order={order} isModifyInputs={isModifyInputs} onModifyOrderInfo={onModifyOrderInfo} /> : null; 
 
     let sectionClassNames = 'order__address';
     sectionClassNames += indexTab === indexTabSelected ? ' tab--selected' : '';
@@ -38,10 +40,19 @@ class View extends Component {
         ZIP: this.props.order.ZIP, 
         region: this.props.order.region, 
         country: this.props.order.country
-    }    
+    }  
+
+    componentDidUpdate() {
+        const {isModifyInputs, onModifyOrderInfo} = this.props;
+
+        if (!isModifyInputs) {
+            const {address, ZIP, region, country} = this.state;
+            onModifyOrderInfo({address, ZIP, region, country});
+        }
+    }
 
     render() {
-        const {order, isModifyInputs} = this.props;
+        const {isModifyInputs} = this.props;
         const {address, ZIP, region, country} = this.state;
 
         return (
