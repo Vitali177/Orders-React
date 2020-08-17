@@ -32,12 +32,14 @@ function OrderList({idSelectedOrder, onChangeSelectedOrderId, isMenuOpen, onTogg
 
             let matchesOrders = data.filter((order) => {
                 const regex = new RegExp(`^${searchText}`, "gi");
+                let isMatched = false;
         
                 for (let i = 0; i < criteria.length; i++) {
                     if ( `${order[criteria[i]]}`.match(regex)) {
-                        return 1;
+                        isMatched = true;
                     }
-                } 
+                }
+                return isMatched;
             });
 
             setOrderList(matchesOrders);
