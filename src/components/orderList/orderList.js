@@ -83,7 +83,7 @@ function OrderList({idSelectedOrder, onChangeSelectedOrderId, isMenuOpen, onTogg
             </div>
             <div className="order-list__main">
                 {spinner}
-                {items}
+                {items ? (items.length ? items : <div className="no-orders">Orders not found</div>) : null}
             </div>
             <div className="order-list__footer">
                 <div className="order-list__footer-button-create-order plus-animation"></div>
