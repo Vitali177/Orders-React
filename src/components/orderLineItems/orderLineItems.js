@@ -8,6 +8,7 @@ function OrderLineItems({order, loadingOrder}) {
 
     const [loadingProducts, setLoadingProducts] = useState(true);
     const [products, setProducts] = useState(null);
+    const[searchText, setSearchText] = useState('');
 
     useEffect(() => {
         async function fetchProducts() {
@@ -32,6 +33,44 @@ function OrderLineItems({order, loadingOrder}) {
         }
     }, [order]);
 
+    async function fetchProducts() {
+        setLoadingProducts(true);
+
+        const {id} = order;
+        let url = `${window.location.origin}/api/Orders/${id}/products`;
+
+        if (process.env.NODE_ENV === 'development') {
+            url = `http://localhost:8080/api/Orders/${id}/products`;
+        }
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        await (() => {
+            const criteria = ["id", "productName", "price", "quantity", "totalPrice"];
+
+            let matchesProducts = data.filter((order) => {
+                const regex = new RegExp(`^${searchText}`, "gi");
+                let isMatched = false;
+        
+                for (let i = 0; i < criteria.length; i++) {
+                    if ( `${order[criteria[i]]}`.match(regex)) {
+                        isMatched = true;
+                    }
+                }
+                return isMatched;
+            });
+
+            setProducts(matchesProducts);
+            setLoadingProducts(false);
+        })();  
+    }
+
+    function searchProducts(e) {
+        e.preventDefault();
+        fetchProducts();
+    }
+
     const spinner = (loadingProducts || loadingOrder) ? <Spinner /> : null;
     const content = (!loadingProducts && !loadingOrder) ? products.map((prod) => <OrderProduct data={prod} key={prod.id} />) : null; 
 
@@ -42,8 +81,14 @@ function OrderLineItems({order, loadingOrder}) {
                     (<span>{(products && !loadingOrder && !loadingProducts) ? products.length : 0}</span>)
                 </h4>
                 <div className="form-wrapper">
-                    <form action="#" className="order__line-items-form">
-                        <input type="search" className="order__line-items-input-search" placeholder="Search" />
+                    <form action="#" className="order__line-items-form" onSubmit={searchProducts}>
+                        <input 
+                            type="search" 
+                            className="order__line-items-input-search" 
+                            value={searchText}
+                            placeholder="Search" 
+                            onChange={(e) => setSearchText(e.target.value)}
+                        />
                         <div className="order-list__button-search">
                             <input type="submit" value="" />
                         </div>
