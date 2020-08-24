@@ -74,8 +74,6 @@ function OrderLineItems({order, loadingOrder}) {
     const spinner = (loadingProducts || loadingOrder) ? <Spinner /> : null;
     const content = (!loadingProducts && !loadingOrder) ? products.map((prod) => <OrderProduct data={prod} key={prod.id} />) : null; 
 
-    console.log(content)
-
     return (
         <section className="order__line-items">
             <div className="order__line-items-header">
