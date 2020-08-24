@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import OrderProduct from '../orderProduct';
 import Spinner from '../spinner';
+import NoProducts from '../noProducts';
 
 import './orderLineItems.css';
 
@@ -107,7 +108,7 @@ function OrderLineItems({order, loadingOrder}) {
                 </div>
                 <div className="wrapper">
                     {spinner}
-                    {content ? (content.length ? content : <div className="no-products">Products not found</div>) : null}
+                    {content ? (content.length ? content : <NoProducts />) : null}
                 </div>                    
             </ul>
         </section>

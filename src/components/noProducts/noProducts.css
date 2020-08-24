@@ -1,0 +1,9 @@
+.no-products {
+  padding-top: 10px;
+}
+
+@media(max-width: 580px) {
+  .no-products {
+    padding-left: 20px;
+  }
+}

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import OrderListItem from '../orderListItem/';
 import Spinner from '../spinner/';
+import NoOrders from '../noOrders/';
 
 import './orderList.css';
 
@@ -83,7 +84,7 @@ function OrderList({idSelectedOrder, onChangeSelectedOrderId, isMenuOpen, onTogg
             </div>
             <div className="order-list__main">
                 {spinner}
-                {items ? (items.length ? items : <div className="no-orders">Orders not found</div>) : null}
+                {items ? (items.length ? items : <NoOrders />) : null}
             </div>
             <div className="order-list__footer">
                 <div className="order-list__footer-button-create-order plus-animation"></div>
