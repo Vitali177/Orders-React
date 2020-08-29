@@ -6,10 +6,11 @@ import NoProducts from '../noProducts';
 import './orderLineItems.css';
 
 function OrderLineItems({order, loadingOrder}) {
-
     const [loadingProducts, setLoadingProducts] = useState(true);
     const [products, setProducts] = useState(null);
-    const[searchText, setSearchText] = useState('');
+    const [searchText, setSearchText] = useState('');
+    const [sortingCriterion, setSortingCriterion] = useState(null);
+    const [sortingDirection, setSortingDirection] = useState(null);
 
     useEffect(() => {
         async function fetchProducts() {
@@ -72,6 +73,27 @@ function OrderLineItems({order, loadingOrder}) {
         fetchProducts();
     }
 
+    function onSortingProducts(criterion) {
+        if (criterion === sortingCriterion) {
+            sortingDirection === null 
+                ? setSortingDirection('ASC') 
+                : sortingDirection === 'ASC' 
+                    ? setSortingDirection('DESC')
+                    : setSortingDirection(null);
+        } else {
+            setSortingDirection('ASC');
+        }
+        setSortingCriterion(criterion);
+    }
+
+    function getClassSortingButton(name) {
+        return sortingCriterion === name && sortingDirection !== null
+            ? sortingDirection === 'ASC' 
+                ? 'sort-picture sort-picture--ASC' 
+                : 'sort-picture sort-picture--DESC'
+            : 'sort-picture';
+    }
+
     const spinner = (loadingProducts || loadingOrder) ? <Spinner /> : null;
     const content = (!loadingProducts && !loadingOrder) ? products.map((prod) => <OrderProduct data={prod} key={prod.id} />) : null; 
 
@@ -100,16 +122,36 @@ function OrderLineItems({order, loadingOrder}) {
             </div>                
             <ul className="order__line-list">
                 <div className="order__line-list-row order__line-list-row--headline">
-                    <li className="product">Product<div className="sort-picture"></div></li>
-                    <li className="unit-price">Unit Price<div className="sort-picture"></div></li>
-                    <li className="quantity">Quantity<div className="sort-picture"></div></li>
-                    <li className="total">Total<div className="sort-picture"></div></li>
+                    <li 
+                        className="product" 
+                        onClick={() => onSortingProducts('product')}>
+                        Product
+                        <div className={getClassSortingButton('product')}></div>
+                    </li>
+                    <li 
+                        className="unit-price" 
+                        onClick={() => onSortingProducts('unit-price')}>
+                        Unit Price
+                        <div className={getClassSortingButton('unit-price')}></div>
+                    </li>
+                    <li 
+                        className="quantity" 
+                        onClick={() => onSortingProducts('quantity')}>
+                        Quantity
+                        <div className={getClassSortingButton('quantity')}></div>                  
+                    </li>
+                    <li 
+                        className="total" 
+                        onClick={() => onSortingProducts('total')}>
+                        Total
+                        <div className={getClassSortingButton('total')}></div>
+                    </li>
                     <li className="delete-product"></li>
-                </div>
+                </div>      
                 <div className="wrapper">
                     {spinner}
                     {content ? (content.length ? content : <NoProducts />) : null}
-                </div>                    
+                </div> 
             </ul>
         </section>
     )    
