@@ -62,7 +62,6 @@ function OrderLineItems({order, loadingOrder}) {
                 }
                 return isMatched;
             });
-
             setProducts(matchesProducts);
             setLoadingProducts(false);
         })();  
@@ -70,6 +69,8 @@ function OrderLineItems({order, loadingOrder}) {
 
     function searchProducts(e) {
         e.preventDefault();
+        setSortingCriterion(null);
+        setSortingDirection(null);
         fetchProducts();
     }
 
@@ -87,15 +88,41 @@ function OrderLineItems({order, loadingOrder}) {
     }
 
     function getClassSortingButton(name) {
-        return sortingCriterion === name && sortingDirection !== null
+        return (sortingCriterion === name && sortingDirection !== null)
             ? sortingDirection === 'ASC' 
                 ? 'sort-picture sort-picture--ASC' 
                 : 'sort-picture sort-picture--DESC'
             : 'sort-picture';
+    }    
+
+    function getSortedProducts() {
+        const classesSortingCriterion = ["product", "unit-price", "quantity", "total"];
+        const criteria = ["productName", "price", "quantity", "totalPrice"];
+        const criterion = criteria[classesSortingCriterion.indexOf(sortingCriterion)];
+
+        return [...products].sort((a, b) => {
+            const value1 = a[criterion];
+            const value2 = b[criterion];
+
+            if (criterion === 'productName') {
+                if (sortingDirection === 'DESC') {
+                    if (value2 > value1) return 1;
+                    return (value2 < value1) ? -1 : 0;
+                } else {
+                    if (value1 > value2) return 1;
+                    return (value1 < value2) ? -1 : 0;
+                }
+            } else return (sortingDirection === 'DESC') ? (value1 - value2) : (value2 - value1); 
+        });
+    }
+
+    function getProducts() {
+        if (sortingDirection === null) return products.map((prod) => <OrderProduct data={prod} key={prod.id} />);
+        return getSortedProducts().map((prod) => <OrderProduct data={prod} key={prod.id} />);
     }
 
     const spinner = (loadingProducts || loadingOrder) ? <Spinner /> : null;
-    const content = (!loadingProducts && !loadingOrder) ? products.map((prod) => <OrderProduct data={prod} key={prod.id} />) : null; 
+    const content = (!loadingProducts && !loadingOrder) ? getProducts() : null; 
 
     return (
         <section className="order__line-items">
