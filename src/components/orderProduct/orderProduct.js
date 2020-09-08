@@ -2,7 +2,7 @@ import React from 'react';
 
 import './orderProduct.css';
 
-const OrderProduct = ({data}) => {
+const OrderProduct = ({data, deleteProduct}) => {
     const {productName, id, price, quantity, totalPrice} = data;
     return (
         <div className="order__line-list-row">
@@ -25,7 +25,10 @@ const OrderProduct = ({data}) => {
                 <span className="currency">EUR</span>
             </li>
             <li className="delete-product">
-                <div className="button-delete-product"></div>
+                <div 
+                    className="button-delete-product"
+                    onClick={() => deleteProduct(id, quantity)}>
+                </div>
             </li>
         </div>
     )

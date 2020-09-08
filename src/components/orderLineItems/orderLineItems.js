@@ -54,17 +54,27 @@ function OrderLineItems({order, loadingOrder}) {
             let matchesProducts = data.filter((order) => {
                 const regex = new RegExp(`^${searchText}`, "gi");
                 let isMatched = false;
-        
-                for (let i = 0; i < criteria.length; i++) {
-                    if ( `${order[criteria[i]]}`.match(regex)) {
-                        isMatched = true;
-                    }
-                }
+
+                criteria.forEach((item) => `${order[item]}`.match(regex) ? isMatched = true : null);                
                 return isMatched;
             });
             setProducts(matchesProducts);
             setLoadingProducts(false);
         })();  
+    }
+
+    async function deleteProduct(productId, productQuantity) {
+        const index = products.findIndex(({ id, quantity }) => id === productId && quantity === productQuantity);
+        setProducts([...products.slice(0, index), ...products.slice(index + 1)]);
+
+        const orderId = order.id;
+        let url = `${window.location.origin}/api/OrderProducts/${orderId}/${productId}?quantity=${productQuantity}`;  
+    
+        if (process.env.NODE_ENV === 'development') {
+            url = `http://localhost:8080/api/OrderProducts/${orderId}/${productId}?quantity=${productQuantity}`;
+        }
+  
+        fetch(url, {method: "DELETE", mode: 'cors', cache: 'no-cache', credentials: 'same-origin'});
     }
 
     function searchProducts(e) {
@@ -117,8 +127,8 @@ function OrderLineItems({order, loadingOrder}) {
     }
 
     function getProducts() {
-        if (sortingDirection === null) return products.map((prod) => <OrderProduct data={prod} key={prod.id} />);
-        return getSortedProducts().map((prod) => <OrderProduct data={prod} key={prod.id} />);
+        if (sortingDirection === null) return products.map((prod) => <OrderProduct data={prod} key={prod.id} deleteProduct={deleteProduct} />);
+        return getSortedProducts().map((prod) => <OrderProduct  data={prod} key={prod.id} deleteProduct={deleteProduct} />);
     }
 
     const spinner = (loadingProducts || loadingOrder) ? <Spinner /> : null;
