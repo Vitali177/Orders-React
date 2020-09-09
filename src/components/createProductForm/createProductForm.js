@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import './createOrderForm.css';
+import './createProductForm.css';
 
-export default function CreateOrderForm ({ onCloseForm }) {
+export default function CreateProductForm ({ onCloseForm }) {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
 

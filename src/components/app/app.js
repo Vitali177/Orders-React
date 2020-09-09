@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Header from '../header';
 import Order from '../order';
 import Footer from '../footer';
-import CreateOrderForm from '../createOrderForm';
+import CreateProductForm from '../createProductForm';
 
 import './app.css';
 
@@ -14,7 +14,7 @@ export default class App extends Component {
     }
 
     onCreateOrderForm = () => {
-        this.setState({popUp: <CreateOrderForm onCloseForm={this.onCloseForm} />});
+        this.setState({popUp: <CreateProductForm onCloseForm={this.onCloseForm} />});
     }
 
     onCloseForm = () => {
