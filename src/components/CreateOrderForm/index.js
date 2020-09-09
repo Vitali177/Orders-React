@@ -1,3 +1,3 @@
-import CreateOrderForm from './CreateOrderForm';
+import CreateOrderForm from './createOrderForm';
 
 export default CreateOrderForm;

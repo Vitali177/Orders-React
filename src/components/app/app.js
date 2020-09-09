@@ -2,13 +2,23 @@ import React, {Component} from 'react';
 import Header from '../header';
 import Order from '../order';
 import Footer from '../footer';
+import CreateOrderForm from '../createOrderForm';
 
 import './app.css';
 
 export default class App extends Component {
 
     state = {
-        idSelectedOrder: 1
+        idSelectedOrder: 1,
+        popUp: null
+    }
+
+    onCreateOrderForm = () => {
+        this.setState({popUp: <CreateOrderForm onCloseForm={this.onCloseForm} />});
+    }
+
+    onCloseForm = () => {
+        this.setState({popUp: null});
     }
 
     onChangeSelectedOrderId = (id) => {
@@ -17,19 +27,30 @@ export default class App extends Component {
         }
     }
 
+    deleteOrder = () => {
+        this.setState({idSelectedOrder: 5})
+    }
+
     render() {
-        const {idSelectedOrder} = this.state;
+        const { idSelectedOrder, popUp } = this.state;
+
         return (
             <>
-                <Header 
-                    idSelectedOrder={idSelectedOrder} 
-                    onChangeSelectedOrderId={this.onChangeSelectedOrderId} 
-                />
-                <Order 
-                    idSelectedOrder={idSelectedOrder} 
-                />
-                <Footer />
-            </>            
+                <div className={popUp ? 'content-wrapper content-wrapper--blurred' : 'content-wrapper'}>
+                    <Header 
+                        idSelectedOrder={idSelectedOrder} 
+                        onChangeSelectedOrderId={this.onChangeSelectedOrderId} 
+                    />
+                    <Order 
+                        idSelectedOrder={idSelectedOrder} 
+                    />
+                    <Footer
+                        deleteOrder={this.deleteOrder}
+                        onCreateOrderForm={this.onCreateOrderForm} 
+                    />
+                </div>    
+                {popUp} 
+            </>       
         );
     }    
 };

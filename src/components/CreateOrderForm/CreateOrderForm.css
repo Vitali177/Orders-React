@@ -1,0 +1,49 @@
+.pop-up-form form {  
+  display: flex;
+  flex-direction: column;
+}
+
+.pop-up-form h3 {
+  font-size: 20px;
+  text-align: center;
+}
+
+.pop-up-form h4 {
+  padding-top: 10px;
+  font-weight: 300;
+}
+
+.pop-up-form input, .pop-up-form select {
+  margin-top: 10px;
+  padding: 3px 10px;
+}
+
+.pop-up-form .cancel-button {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  background: url("./img/close.png") center center no-repeat no-repeat;
+  background-size: 80%;
+  cursor: pointer;
+}
+
+.pop-up-form .cancel-button:hover {
+  background-color: var(--secondary-gray);
+}
+
+.pop-up-form input[type="submit"] {
+  margin-top: 20px;
+  height: 32px;
+  width: 120px;
+  padding: 0;
+  border: 0;
+  align-self: center;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.pop-up-form input[type="submit"]:hover {
+  border: 2px solid var(--primary-blue);
+}
