@@ -2,12 +2,12 @@ import React from 'react';
 
 import './footer.css';
 
-const Footer = ({ deleteOrder, onCreateOrderForm }) => {
+const Footer = ({ deleteOrder, onCreateProductForm }) => {
     return (
         <footer className="footer">
             <div 
                 className="footer__create-product"
-                onClick={() => onCreateOrderForm()}>
+                onClick={() => onCreateProductForm()}>
                 <div className="footer__button-create-product"></div>
                 <p>Create Product</p>
             </div>     

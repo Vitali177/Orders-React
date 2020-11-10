@@ -3,6 +3,7 @@ import Header from '../header';
 import Order from '../order';
 import Footer from '../footer';
 import CreateProductForm from '../createProductForm';
+import CreateOrderForm from '../createOrderForm';
 
 import './app.css';
 
@@ -13,8 +14,12 @@ export default class App extends Component {
         popUp: null
     }
 
-    onCreateOrderForm = () => {
+    onCreateProductForm = () => {
         this.setState({popUp: <CreateProductForm onCloseForm={this.onCloseForm} />});
+    }
+
+    onCreateOrderForm = () => {
+
     }
 
     onCloseForm = () => {
@@ -46,7 +51,7 @@ export default class App extends Component {
                     />
                     <Footer
                         deleteOrder={this.deleteOrder}
-                        onCreateOrderForm={this.onCreateOrderForm} 
+                        onCreateProductForm={this.onCreateProductForm} 
                     />
                 </div>    
                 {popUp} 
