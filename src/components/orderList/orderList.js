@@ -1,60 +1,27 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import OrderListItem from '../orderListItem/';
 import Spinner from '../spinner/';
 import NoOrders from '../noOrders/';
 
+import { connect } from "react-redux";
+import { fetchOrders } from '../../redux/actions/';
+
 import './orderList.css';
 
-function OrderList({idSelectedOrder, onChangeSelectedOrderId, onCreateOrderForm, isMenuOpen, onToggleMenu}) {
-
-    const [loading, setLoading] = useState(true);
-    const [orderList, setOrderList] = useState(null);
+function OrderList({idSelectedOrder, onChangeSelectedOrderId, onCreateOrderForm, isMenuOpen, onToggleMenu, orderList, isReceiveOrders, fetchOrders}) {
     const[searchText, setSearchText] = useState('');
 
     useEffect(() => {        
-        fetchOrderList(searchText);
+        fetchOrders(searchText);
     }, []);
-
-    async function fetchOrderList(searchText) {
-        setLoading(true);
-
-        let url = `${window.location.origin}/api/Orders`;
-
-        if (process.env.NODE_ENV === 'development') {
-            url = 'http://localhost:8080/api/Orders';
-        }
-
-        const res = await fetch(url);
-        const data = await res.json();
-
-        await (() => {
-            const criteria = ["id", "ZIP", "address", "country", "createdAt", "email", "firstName",
-                "lastName", "phone", "region", "shippedAt", "status"];
-
-            let matchesOrders = data.filter((order) => {
-                const regex = new RegExp(`^${searchText}`, "gi");
-                let isMatched = false;
-        
-                for (let i = 0; i < criteria.length; i++) {
-                    if ( `${order[criteria[i]]}`.match(regex)) {
-                        isMatched = true;
-                    }
-                }
-                return isMatched;
-            });
-
-            setOrderList(matchesOrders);
-            setLoading(false);
-        })();   
-    }
 
     function searchOrders(e) {
         e.preventDefault();
-        fetchOrderList(searchText);
+        fetchOrders(searchText);
     }    
 
-    const spinner = loading ? <Spinner /> : null; 
-    const items = !loading ? orderList.map((order) => <OrderListItem 
+    const spinner = !(orderList && isReceiveOrders) ? <Spinner /> : null; 
+    const items = orderList && isReceiveOrders ? orderList.map((order) => <OrderListItem 
             order={order} 
             key={order.id} 
             idSelectedOrder={idSelectedOrder} 
@@ -97,4 +64,4 @@ function OrderList({idSelectedOrder, onChangeSelectedOrderId, onCreateOrderForm,
     )  
 }
 
-export default OrderList;
+export default connect(({ orderList, isReceiveOrders }) => ({ orderList, isReceiveOrders }), { fetchOrders })(OrderList);

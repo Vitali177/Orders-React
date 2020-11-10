@@ -1,9 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Header from '../header';
 import Order from '../order';
 import Footer from '../footer';
 import CreateProductForm from '../createProductForm';
 import CreateOrderForm from '../createOrderForm';
+
+import { Provider } from 'react-redux';
+import store from '../../redux/store';
 
 import './app.css';
 
@@ -40,7 +43,7 @@ export default class App extends Component {
         const { idSelectedOrder, popUp } = this.state;
 
         return (
-            <>
+            <Provider store={store}>
                 <div className={popUp ? 'content-wrapper content-wrapper--blurred' : 'content-wrapper'}>
                     <Header 
                         idSelectedOrder={idSelectedOrder} 
@@ -56,7 +59,7 @@ export default class App extends Component {
                     />
                 </div>    
                 {popUp} 
-            </>       
+            </Provider>       
         );
     }    
 };
