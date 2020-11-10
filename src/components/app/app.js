@@ -19,7 +19,7 @@ export default class App extends Component {
     }
 
     onCreateOrderForm = () => {
-
+        this.setState({popUp: <CreateOrderForm onCloseForm={this.onCloseForm} />});
     }
 
     onCloseForm = () => {
@@ -45,6 +45,7 @@ export default class App extends Component {
                     <Header 
                         idSelectedOrder={idSelectedOrder} 
                         onChangeSelectedOrderId={this.onChangeSelectedOrderId} 
+                        onCreateOrderForm={this.onCreateOrderForm}
                     />
                     <Order 
                         idSelectedOrder={idSelectedOrder} 

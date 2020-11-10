@@ -5,7 +5,7 @@ import NoOrders from '../noOrders/';
 
 import './orderList.css';
 
-function OrderList({idSelectedOrder, onChangeSelectedOrderId, isMenuOpen, onToggleMenu}) {
+function OrderList({idSelectedOrder, onChangeSelectedOrderId, onCreateOrderForm, isMenuOpen, onToggleMenu}) {
 
     const [loading, setLoading] = useState(true);
     const [orderList, setOrderList] = useState(null);
@@ -87,7 +87,11 @@ function OrderList({idSelectedOrder, onChangeSelectedOrderId, isMenuOpen, onTogg
                 {items ? (items.length ? items : <NoOrders />) : null}
             </div>
             <div className="order-list__footer">
-                <div className="order-list__footer-button-create-order plus-animation"></div>
+                <div 
+                    className="order-list__footer-button-create-order plus-animation"
+                    onClick={() => onCreateOrderForm()}    
+                >
+                </div>
             </div>
         </section>
     )  

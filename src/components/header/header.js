@@ -3,7 +3,7 @@ import OrderList from '../orderList';
 
 import './header.css';
 
-function Header({idSelectedOrder, onChangeSelectedOrderId}) {
+function Header({idSelectedOrder, onChangeSelectedOrderId, onCreateOrderForm}) {
 
     const [isMenuOpen, setMenu] = useState(true);
 
@@ -28,6 +28,7 @@ function Header({idSelectedOrder, onChangeSelectedOrderId}) {
             <OrderList 
                 idSelectedOrder={idSelectedOrder} 
                 onChangeSelectedOrderId={onChangeSelectedOrderId}
+                onCreateOrderForm={onCreateOrderForm}
                 isMenuOpen={isMenuOpen}
                 onToggleMenu={onToggleMenu}
             />
