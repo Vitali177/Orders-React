@@ -1,8 +1,9 @@
-// function requestOrders() {
-//   return { type: 'REQUEST_ORDERS'};
-// }
-
 export const setOrderSearchText = text => ({type: 'SET_ORDER_SEARCH_TEXT', text});
+export const onChangeSelectedOrderId = id => ({type: 'CHANGE_SELECTED_ORDER', id});
+export const onCreateProductForm = () => ({type: 'OPEN_CREATE_PRODUCT_FORM'});
+export const onCreateOrderForm = () => ({type: 'OPEN_CREATE_ORDER_FORM'});
+export const onCloseForm = () => ({type: 'CLOSE_FORM'});
+
 
 function receiveOrders(orderList) {
   return { type: 'RECEIVE_ORDERS', orderList };
