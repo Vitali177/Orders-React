@@ -2,6 +2,8 @@
 //   return { type: 'REQUEST_ORDERS'};
 // }
 
+export const setOrderSearchText = text => ({type: 'SET_ORDER_SEARCH_TEXT', text});
+
 function receiveOrders(orderList) {
   return { type: 'RECEIVE_ORDERS', orderList };
 }

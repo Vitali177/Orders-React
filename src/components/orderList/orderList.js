@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import OrderListItem from '../orderListItem/';
 import Spinner from '../spinner/';
 import NoOrders from '../noOrders/';
 
 import { connect } from "react-redux";
-import { fetchOrders } from '../../redux/actions/';
+import { fetchOrders, setOrderSearchText } from '../../redux/actions/';
 
 import './orderList.css';
 
-function OrderList({idSelectedOrder, onChangeSelectedOrderId, onCreateOrderForm, isMenuOpen, onToggleMenu, orderList, isReceiveOrders, fetchOrders}) {
-    const[searchText, setSearchText] = useState('');
+function OrderList({idSelectedOrder, onChangeSelectedOrderId, onCreateOrderForm, isMenuOpen, onToggleMenu, orderList, isReceiveOrders, fetchOrders, orderSearchText, setOrderSearchText}) {
 
     useEffect(() => {        
-        fetchOrders(searchText);
+        fetchOrders(orderSearchText);
     }, []);
 
     function searchOrders(e) {
         e.preventDefault();
-        fetchOrders(searchText);
+        fetchOrders(orderSearchText);
     }    
 
     const spinner = !(orderList && isReceiveOrders) ? <Spinner /> : null; 
@@ -39,9 +38,9 @@ function OrderList({idSelectedOrder, onChangeSelectedOrderId, onCreateOrderForm,
                     <input 
                         type="search" 
                         className="order-list__input-search" 
-                        value={searchText}
+                        value={orderSearchText}
                         placeholder="Search" 
-                        onChange={(e) => setSearchText(e.target.value)}
+                        onChange={(e) => setOrderSearchText(e.target.value)}
                     />
                     <div className="order-list__button-search">
                         <input type="submit" value="" />
@@ -64,4 +63,7 @@ function OrderList({idSelectedOrder, onChangeSelectedOrderId, onCreateOrderForm,
     )  
 }
 
-export default connect(({ orderList, isReceiveOrders }) => ({ orderList, isReceiveOrders }), { fetchOrders })(OrderList);
+export default connect(
+    ({ orderList, isReceiveOrders, orderSearchText }) => ({orderList, isReceiveOrders, orderSearchText}),
+    {fetchOrders, setOrderSearchText}
+)(OrderList);

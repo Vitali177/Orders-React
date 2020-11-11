@@ -1,14 +1,14 @@
 const initialState = {
-  orderList: []
+  orderList: [],
+  orderSearchText: ''
 }
 
 function rootReducer(state = initialState, action) {
-  if (action.type === 'GET_ORDERS') {
-    console.log('F'); 
-    return {orderList: []}
-  } else if (action.type === 'RECEIVE_ORDERS') {
+  if (action.type === 'RECEIVE_ORDERS') {
     return {...state, isReceiveOrders: true, orderList: action.orderList};
-  } 
+  } else if (action.type === 'SET_ORDER_SEARCH_TEXT') {
+    return {...state, orderSearchText: action.text};
+  }
   return state;
 }
 
