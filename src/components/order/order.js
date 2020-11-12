@@ -1,16 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import OrderMainInfo from '../orderMainInfo';
 import OrderAddress from '../orderAddress';
 import OrderProcessor from '../orderProcessor';
 import OrderMap from '../orderMap';
 import OrderLineItems from '../orderLineItems';
 
-import './order.css';
-function Order({idSelectedOrder}) {
+import { connect } from "react-redux";
+import { changeSelectedOrder, changeIndexTabSelected } from '../../redux/actions/';
 
+import './order.css';
+
+function Order({ idSelectedOrder, selectedOrder, changeSelectedOrder, indexTabSelected, changeIndexTabSelected }) {
     const [loading, setLoading] = useState(true);
-    const [selectedOrder, changeSelectedOrder] = useState(null);
-    const [indexTabSelected, changeIndexTabSelected] = useState(0);    
 
     useEffect(() => {
         async function fetchOrder() {
@@ -92,4 +93,7 @@ function Order({idSelectedOrder}) {
     )    
 }
 
-export default Order;
+export default connect(
+    ({ selectedOrder, indexTabSelected }) => ({ selectedOrder, indexTabSelected }),
+    { changeSelectedOrder, changeIndexTabSelected }
+)(Order);
